@@ -10,6 +10,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Düşen Karakterler Oyunu")
 
 pygame.mixer.music.load("requirements/music.mp3")
+pygame.mixer.music.set_volume(0.05)
 pygame.mixer.music.play(-1)
 
 black = (0, 0, 0)
@@ -58,11 +59,21 @@ bubble_width = 100
 bubble_height = 100
 bubble_image = pygame.image.load("requirements/bubble.png")
 bubble_image = pygame.transform.scale(bubble_image,
-                                      (int(bubble_image.get_width() * bubble_width/100),
-                                       int(bubble_image.get_height() * (bubble_height/100))))
+                                      (int(bubble_image.get_width() * bubble_width / 100),
+                                       int(bubble_image.get_height() * (bubble_height / 100))))
 
 pygame.mixer.init()
 correct_sound = pygame.mixer.Sound("requirements/correct.mp3")
+
+
+sounds = {}
+for char in "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ0123456789":
+    if char == 'I':
+        sounds[char] = pygame.mixer.Sound(f"requirements/sounds/İ.wav")
+    elif char == 'İ':
+        sounds[char] = pygame.mixer.Sound(f"requirements/sounds/I.wav")
+    else:
+        sounds[char] = pygame.mixer.Sound(f"requirements/sounds/{char}.wav")
 
 
 def reset_game():
@@ -223,7 +234,7 @@ def setup_game():
     global letters, letter_speed_y, letter_speed_x, letter_index, letter, letter_x, letter_y
 
     if include_letters:
-        letters.extend([chr(i) for i in range(65, 91)])
+        letters.extend([c for c in "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ"])
     if include_numbers:
         letters.extend([str(i) for i in range(0, 10)])
 
@@ -237,6 +248,9 @@ def setup_game():
     letter = letters[letter_index]
     letter_x = screen_width // 2
     letter_y = 0
+
+    # Play sound for the first letter
+    sounds[letter].play()
 
 
 start_screen()
@@ -273,6 +287,9 @@ while running:
                 letter_x = screen_width // 2
                 letter_y = 0
                 letter_speed_x = random.choice([-1, 1]) * selected_speed / 20
+
+                # Play sound for the new letter
+                sounds[letter].play()
             else:
                 game_over = True
         else:
@@ -286,6 +303,9 @@ while running:
                     letter_x = screen_width // 2
                     letter_y = 0
                     letter_speed_x = random.choice([-1, 1]) * selected_speed / 20
+
+                    # Play sound for the new letter
+                    sounds[letter].play()
                 else:
                     game_over = True
 

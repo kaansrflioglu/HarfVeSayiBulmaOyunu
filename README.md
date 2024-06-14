@@ -7,6 +7,8 @@
 ### Uygulama Hakkında
 
 Bu proje, kullanıcının belirli bir metinde geçen sayıları ve karakterleri bulmasına yardımcı olan bir oyundur. Kullanıcı metin içinde düşen harfleri gördüğünde ekrandaki harfle aynı tuşa basarak puan kazanır. Harf hızı ve diğer ayarlar kullanıcı tarafından seçilebilir.
+  
+**Yeni Özellik:**  Artık her doğru tuşa basıldığında, o harfin/sayının sesi de çalınarak oyun deneyimi daha interaktif hale getirildi.
 
 ### Nasıl Çalıştırılır?
 
